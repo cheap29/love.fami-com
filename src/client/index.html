@@ -25,11 +25,28 @@
           class="search-input"
           placeholder="タイトル、説明、レビューコメントで検索..."
         />
+        <!-- 50音順一覧トグルボタンを追加 -->
+        <button id="gameListToggle" class="list-toggle-btn" type="button">
+          📋 50音順一覧
+        </button>
       </section>
 
       <main id="gamesContainer" class="games-container">
         <div class="loading">読み込み中...</div>
       </main>
+    </div>
+
+    <!-- 50音順一覧オーバーレイを追加 -->
+    <div id="gameListOverlay" class="game-list-overlay hidden">
+      <div class="game-list-container">
+        <div class="game-list-header">
+          <h2 class="game-list-title">📋 ゲーム一覧（50音順）</h2>
+          <button id="gameListClose" class="close-btn" type="button">✕</button>
+        </div>
+        <div id="gameListContent" class="game-list-content">
+          <div class="loading">読み込み中...</div>
+        </div>
+      </div>
     </div>
   </body>
 </html>

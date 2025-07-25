@@ -4,6 +4,7 @@ import "./styles.css";
 class FamicomSearchApp {
   constructor() {
     this.games = [];
+    this.sortedGames = [];
     this.init();
   }
 
@@ -19,7 +20,9 @@ class FamicomSearchApp {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
       this.games = await response.json();
+      this.sortedGames = this.sortGamesByJapanese(this.games);
       this.renderGames(this.games);
+      this.renderGameList();
     } catch (error) {
       console.error("データ読み込み失敗:", error);
       this.showError("データの読み込みに失敗しました");
@@ -29,6 +32,117 @@ class FamicomSearchApp {
   setupEventListeners() {
     const searchInput = document.getElementById("searchInput");
     searchInput.addEventListener("input", () => this.handleSearch());
+
+    // 50音順一覧関連のイベントリスナーを追加
+    const listToggle = document.getElementById("gameListToggle");
+    const listClose = document.getElementById("gameListClose");
+    const overlay = document.getElementById("gameListOverlay");
+
+    listToggle.addEventListener("click", () => this.toggleGameList());
+    listClose.addEventListener("click", () => this.hideGameList());
+
+    // オーバーレイ背景クリックで閉じる
+    overlay.addEventListener("click", (e) => {
+      if (e.target === overlay) {
+        this.hideGameList();
+      }
+    });
+
+    // ESCキーで閉じる
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
+        this.hideGameList();
+      }
+    });
+  }
+
+  // 50音順ソート関数
+  sortGamesByJapanese(games) {
+    return [...games].sort((a, b) => {
+      return a.title.localeCompare(b.title, "ja", { numeric: true });
+    });
+  }
+
+  // 50音順一覧の表示/非表示切り替え
+  toggleGameList() {
+    const overlay = document.getElementById("gameListOverlay");
+    if (overlay.classList.contains("hidden")) {
+      this.showGameList();
+    } else {
+      this.hideGameList();
+    }
+  }
+
+  showGameList() {
+    const overlay = document.getElementById("gameListOverlay");
+    overlay.classList.remove("hidden");
+    document.body.style.overflow = "hidden"; // 背景スクロール防止
+  }
+
+  hideGameList() {
+    const overlay = document.getElementById("gameListOverlay");
+    overlay.classList.add("hidden");
+    document.body.style.overflow = ""; // スクロール復元
+  }
+
+  // 50音順一覧のレンダリング
+  renderGameList() {
+    const container = document.getElementById("gameListContent");
+
+    if (this.sortedGames.length === 0) {
+      container.innerHTML =
+        '<div class="loading">ゲームデータがありません</div>';
+      return;
+    }
+
+    const gamesHtml = this.sortedGames
+      .map(
+        (game, index) => `
+      <div class="game-list-item" data-game-index="${index}">
+        <div class="game-list-item-content">
+          <div class="game-list-item-title">${game.title}</div>
+          <div class="game-list-item-meta">${game.publisher} · ${game.releaseYear}年 · ${game.genre}</div>
+        </div>
+      </div>
+    `
+      )
+      .join("");
+
+    container.innerHTML = gamesHtml;
+
+    // 一覧アイテムクリックでメイン画面にスクロール
+    container.addEventListener("click", (e) => {
+      const item = e.target.closest(".game-list-item");
+      if (item) {
+        const gameIndex = parseInt(item.dataset.gameIndex);
+        const game = this.sortedGames[gameIndex];
+        this.scrollToGame(game);
+        this.hideGameList();
+      }
+    });
+  }
+
+  // 指定ゲームまでスクロール
+  scrollToGame(targetGame) {
+    const gameCards = document.querySelectorAll(".game");
+    for (const card of gameCards) {
+      const titleElement = card.querySelector(".game-title-link");
+      if (
+        titleElement &&
+        titleElement.textContent.trim() === targetGame.title
+      ) {
+        card.scrollIntoView({
+          behavior: "smooth",
+          block: "center",
+        });
+        // ハイライト効果を追加
+        card.style.border = "2px solid #0969da";
+        setTimeout(() => {
+          card.style.border = "1px solid #d1d9e0";
+        }, 2000);
+        break;
+      }
+    }
   }
 
   handleSearch() {
