@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <title>ファミコンソフト検索</title>
+    <style>
+      body {
+        font-family: sans-serif;
+        margin: 20px;
+      }
+      .game {
+        border: 1px solid #ccc;
+        padding: 12px;
+        margin-bottom: 16px;
+      }
+      .hidden {
+        display: none;
+      }
+      input {
+        width: 100%;
+        padding: 8px;
+        margin: 16px 0;
+        font-size: 16px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>ファミコンソフト検索</h1>
+    <input
+      type="search"
+      id="searchInput"
+      placeholder="タイトル・説明・レビューコメントを検索"
+    />
+    <div id="gamesContainer">読み込み中…</div>
+
+    <script type="text/javascript">
+      async function loadData() {
+        try {
+          const resp = await fetch("data/data.json");
+          if (!resp.ok) throw new Error(`HTTP error! status: ${resp.status}`);
+          const games = await resp.json();
+          renderGames(games);
+          document.getElementById("searchInput").oninput = () => filterGames();
+        } catch (e) {
+          console.error("データ読み込み失敗:", e);
+          document.getElementById("gamesContainer").innerText =
+            "データの読み込みに失敗しました";
+        }
+      }
+
+      function renderGames(list) {
+        const container = document.getElementById("gamesContainer");
+        container.innerHTML = "";
+        list.forEach((game) => {
+          const div = document.createElement("div");
+          div.className = "game";
+          const combined = (
+            game.title +
+            " " +
+            game.description +
+            " " +
+            (game.reviewComments || []).join(" ")
+          ).toLowerCase();
+          div.dataset.text = combined;
+          div.innerHTML = `
+          <h2>${game.title} <small>(信憑性: ${game.credibility}%)</small></h2>
+          <p><strong>メーカー:</strong> ${
+            game.publisher
+          } ／ <strong>発売年:</strong> ${
+            game.releaseYear
+          } 年 ／ <strong>ジャンル:</strong> ${game.genre}</p>
+          <p>${game.description}</p>
+          <h4>レビュー・コメント:</h4>
+          <ul>${(game.reviewComments || [])
+            .map((c) => `<li>${c}</li>`)
+            .join("")}</ul>
+        `;
+          container.appendChild(div);
+        });
+      }
+
+      function filterGames() {
+        const q = document.getElementById("searchInput").value.toLowerCase();
+        document.querySelectorAll(".game").forEach((div) => {
+          div.classList.toggle("hidden", !div.dataset.text.includes(q));
+        });
+      }
+
+      document.addEventListener("DOMContentLoaded", loadData);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,349 @@
+/* フォントとベース設定 */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap");
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+  background-color: #ffffff;
+  color: #24292f;
+  margin: 0;
+  padding: 0;
+  line-height: 1.6;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+/* ヘッダーデザイン */
+.header {
+  text-align: center;
+  margin-bottom: 32px;
+  padding: 48px 24px;
+  background-color: #f6f8fa;
+  border-radius: 12px;
+  border: 1px solid #d1d9e0;
+}
+
+.title {
+  font-size: 2.5rem;
+  font-weight: 600;
+  color: #24292f;
+  margin: 0 0 8px 0;
+}
+
+.subtitle {
+  font-size: 1.125rem;
+  color: #656d76;
+  margin: 0;
+  font-weight: 400;
+}
+
+/* 検索セクション */
+.search-section {
+  margin-bottom: 24px;
+}
+
+.search-input {
+  width: 100%;
+  padding: 12px 16px;
+  font-size: 16px;
+  font-family: inherit;
+  border: 1px solid #d1d9e0;
+  border-radius: 6px;
+  background-color: #ffffff;
+  color: #24292f;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #0969da;
+  box-shadow: 0 0 0 3px rgba(9, 105, 218, 0.1);
+}
+
+.search-input::placeholder {
+  color: #656d76;
+}
+
+/* ゲームカードレイアウト */
+.games-container {
+  display: grid;
+  gap: 16px;
+}
+
+.game {
+  background-color: #ffffff;
+  border: 1px solid #d1d9e0;
+  border-radius: 12px;
+  padding: 24px;
+  transition: all 0.2s ease;
+  display: flex;
+  gap: 20px;
+}
+
+.game:hover {
+  border-color: #0969da;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.04);
+}
+
+/* ゲーム画像 */
+.game-image {
+  flex-shrink: 0;
+  width: 120px;
+  height: 120px;
+}
+
+.game-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid #d1d9e0;
+  background-color: #f6f8fa;
+}
+
+/* ゲーム情報エリア */
+.game-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.game-title-link {
+  color: #0969da;
+  text-decoration: none;
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 1.3;
+  display: inline-block;
+  margin-bottom: 8px;
+}
+
+.game-title-link:hover {
+  text-decoration: underline;
+}
+
+.external-link-icon {
+  font-size: 0.8em;
+  margin-left: 0.3em;
+  opacity: 0.7;
+  transition: opacity 0.2s ease;
+}
+
+.game-title-link:hover .external-link-icon {
+  opacity: 1;
+}
+
+.credibility {
+  font-size: 0.875rem;
+  color: #656d76;
+  font-weight: 400;
+  margin-left: 8px;
+}
+
+.game-meta {
+  font-size: 0.875rem;
+  color: #656d76;
+  margin-bottom: 16px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.meta-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.meta-label {
+  font-weight: 500;
+  color: #24292f;
+}
+
+.game-description {
+  font-size: 0.875rem;
+  color: #24292f;
+  margin-bottom: 16px;
+  line-height: 1.5;
+  background-color: #e0eddc;
+  padding: 1rem 0.75rem;
+}
+
+.reviews-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #24292f;
+  margin: 0 0 8px 0;
+}
+
+.reviews-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: flex-start;
+}
+
+.review-item {
+  background: #ffffef;
+  border: 1px solid #fffcf5;
+  border-radius: 8px 8px 8px 2px;
+  padding: 16px;
+  color: #24292f;
+  font-size: 0.875rem;
+  position: relative;
+  line-height: 1.4;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transform: rotate(-1deg);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  min-height: 80px;
+  max-width: 250px;
+  flex: 0 0 auto;
+}
+
+.review-item:nth-child(even) {
+  transform: rotate(1deg);
+}
+
+.review-item:nth-child(3n) {
+  transform: rotate(-0.5deg);
+}
+
+.review-item:hover {
+  transform: rotate(0deg) scale(1.02);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+}
+
+.review-item::before {
+  content: "";
+  position: absolute;
+  top: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 12px;
+  height: 12px;
+  background: radial-gradient(circle, #dc3545, #a71e2a);
+  border-radius: 50%;
+  box-shadow: 0 2px 4px rgba(220, 53, 69, 0.3),
+    inset 0 1px 2px rgba(255, 255, 255, 0.3);
+  border: 1px solid #8b1a1a;
+}
+
+.review-item::after {
+  content: "";
+  position: absolute;
+  top: 1px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2px;
+  height: 2px;
+  background: #fff;
+  border-radius: 50%;
+  box-shadow: 0 0 1px rgba(255, 255, 255, 0.8);
+}
+
+/* 豆知識セクション */
+.fun-facts-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #24292f;
+  margin: 16px 0 8px 0;
+}
+
+.fun-facts-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.fun-fact-item {
+  padding: 2px 0px 2px 1rem;
+  color: #183f6d;
+  font-size: 0.875rem;
+  position: relative;
+  line-height: 1.4;
+}
+
+.fun-fact-item::before {
+  content: "🫛";
+  position: absolute;
+  left: -8px;
+  top: 2px;
+  font-size: 1rem;
+  background-color: #ffffff;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ローディングとエラー */
+.loading {
+  text-align: center;
+  font-size: 1.125rem;
+  color: #656d76;
+  padding: 64px 24px;
+  background-color: #f6f8fa;
+  border-radius: 12px;
+  border: 1px solid #d1d9e0;
+}
+
+.hidden {
+  display: none;
+}
+
+/* レスポンシブ */
+@media (max-width: 768px) {
+  .container {
+    padding: 16px;
+  }
+
+  .title {
+    font-size: 2rem;
+  }
+
+  .game {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .game-image {
+    width: 100%;
+    height: 200px;
+    align-self: center;
+    max-width: 300px;
+  }
+
+  .game-meta {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .game-title-link {
+    font-size: 1.25rem;
+  }
+
+  .reviews-list {
+    gap: 12px;
+  }
+
+  .review-item {
+    min-height: 60px;
+    padding: 12px;
+  }
+}
