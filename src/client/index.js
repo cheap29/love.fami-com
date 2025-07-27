@@ -1,32 +1,25 @@
 import "./styles.css";
+// データを直接importする
+import gamesData from "../../data/data.json";
 
 // アプリケーションのメインクラス
 class FamicomSearchApp {
   constructor() {
-    this.games = [];
+    this.games = gamesData; // 直接データを使用
     this.sortedGames = [];
     this.init();
   }
 
   async init() {
-    await this.loadData();
+    this.loadData();
     this.setupEventListeners();
   }
 
-  async loadData() {
-    try {
-      const response = await fetch("/api/games");
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      this.games = await response.json();
-      this.sortedGames = this.sortGamesByJapanese(this.games);
-      this.renderGames(this.games);
-      this.renderGameList();
-    } catch (error) {
-      console.error("データ読み込み失敗:", error);
-      this.showError("データの読み込みに失敗しました");
-    }
+  loadData() {
+    // サーバーAPIを使わずに直接データを処理
+    this.sortedGames = this.sortGamesByJapanese(this.games);
+    this.renderGames(this.games);
+    this.renderGameList();
   }
 
   setupEventListeners() {
@@ -88,12 +81,17 @@ class FamicomSearchApp {
   // 50音順一覧のレンダリング
   renderGameList() {
     const container = document.getElementById("gameListContent");
+    const countElement = document.getElementById("gameCount");
 
     if (this.sortedGames.length === 0) {
       container.innerHTML =
         '<div class="loading">ゲームデータがありません</div>';
+      countElement.textContent = "0件";
       return;
     }
+
+    // 件数を更新
+    countElement.textContent = `${this.sortedGames.length}件`;
 
     const gamesHtml = this.sortedGames
       .map(
