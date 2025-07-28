@@ -14,7 +14,7 @@
       <header class="header">
         <h1 class="title">ファミコンソフトメモリアル</h1>
         <p class="subtitle">
-          1980年代ファミリーコンピュータ懐かしいゲームの情報をふりかえり若返りましょう！
+          1980年代ファミリーコンピュータ懐かしいゲームの情報を検索できます
         </p>
       </header>
 
@@ -28,6 +28,10 @@
         <!-- 50音順一覧トグルボタンを追加 -->
         <button id="gameListToggle" class="list-toggle-btn" type="button">
           📋 50音順一覧
+        </button>
+        <!-- データ追加ボタンを追加 -->
+        <button id="addGameBtn" class="add-game-btn" type="button">
+          ➕ ゲーム追加
         </button>
       </section>
 
@@ -48,6 +52,35 @@
         </div>
         <div id="gameListContent" class="game-list-content">
           <div class="loading">読み込み中...</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ゲーム追加モーダル -->
+    <div id="addGameModal" class="modal-overlay hidden">
+      <div class="modal-container">
+        <div class="modal-header">
+          <h2 class="modal-title">🎮 ゲームデータ追加</h2>
+          <button id="modalClose" class="close-btn" type="button">✕</button>
+        </div>
+        <div class="modal-content">
+          <div class="form-group">
+            <label for="gameJsonTextarea">JSONデータ:</label>
+            <textarea
+              id="gameJsonTextarea"
+              class="json-textarea"
+              placeholder="ゲームデータをJSON形式で入力してください..."
+              rows="20"
+            ></textarea>
+          </div>
+          <div class="form-actions">
+            <button id="saveGameBtn" class="save-btn" type="button">
+              💾 保存
+            </button>
+            <button id="cancelBtn" class="cancel-btn" type="button">
+              ❌ キャンセル
+            </button>
+          </div>
         </div>
       </div>
     </div>

@@ -1,12 +1,12 @@
 {
   "name": "love-fami-com",
   "version": "1.0.0",
-  "description": "ファミコンソフト検索アプリ",
-  "main": "dist/server.js",
+  "description": "ファミコンソフトメモリアル",
+  "main": "dist/famicon/index.html",
   "scripts": {
     "dev": "webpack serve --mode development",
     "build": "webpack --mode production",
-    "start": "serve -s dist/public -p 3000",
+    "start": "serve -s dist/famicon -p 3000",
     "clean": "rimraf dist"
   },
   "devDependencies": {

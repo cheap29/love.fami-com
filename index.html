@@ -36,7 +36,7 @@
     <script type="text/javascript">
       async function loadData() {
         try {
-          const resp = await fetch("data/data.json");
+          const resp = await fetch("data/games.json");
           if (!resp.ok) throw new Error(`HTTP error! status: ${resp.status}`);
           const games = await resp.json();
           renderGames(games);

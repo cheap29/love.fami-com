@@ -9,8 +9,10 @@ module.exports = (env, argv) => {
   return {
     entry: "./src/client/index.js",
     output: {
-      path: path.resolve(__dirname, "dist/public"),
-      filename: isProduction ? "[name].[contenthash].js" : "[name].js",
+      path: path.resolve(__dirname, "dist"),
+      filename: isProduction
+        ? "famicon/[name].[contenthash].js"
+        : "famicon/[name].js",
       clean: true,
     },
     module: {
@@ -26,7 +28,7 @@ module.exports = (env, argv) => {
           test: /\.(png|jpg|jpeg|gif|svg)$/i,
           type: "asset/resource",
           generator: {
-            filename: "img/[name][ext]",
+            filename: "famicon/img/[name][ext]",
           },
         },
       ],
@@ -34,24 +36,31 @@ module.exports = (env, argv) => {
     plugins: [
       new HtmlWebpackPlugin({
         template: "./src/client/index.html",
-        filename: "index.html",
+        filename: "famicon/index.html",
       }),
       ...(isProduction
         ? [
             new MiniCssExtractPlugin({
-              filename: "[name].[contenthash].css",
+              filename: "famicon/[name].[contenthash].css",
             }),
           ]
         : []),
       new CopyWebpackPlugin({
         patterns: [
+          // PHPファイルをWordPressテーマ構造にコピー
           {
-            from: "data",
-            to: "data",
+            from: "server/functions.php",
+            to: "wp-content/themes/saka.playground/functions.php",
           },
+          // データファイルをWordPressテーマ構造にコピー
+          {
+            from: "data/games.json",
+            to: "wp-content/themes/saka.playground/data/games.json",
+          },
+          // 画像ファイル
           {
             from: "src/client/img",
-            to: "img",
+            to: "famicon/img",
             noErrorOnMissing: true,
           },
         ],
@@ -59,13 +68,10 @@ module.exports = (env, argv) => {
     ],
     devServer: {
       static: {
-        directory: path.join(__dirname, "dist/public"),
+        directory: path.join(__dirname, "dist/famicon"),
       },
       compress: true,
-      port: 3001,
-      proxy: {
-        "/api": "http://localhost:3000",
-      },
+      port: 8080,
     },
     devtool: isProduction ? "source-map" : "eval-source-map",
   };
