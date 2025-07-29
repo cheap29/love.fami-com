@@ -21,13 +21,10 @@
       "originalPrice": "約5,000〜6,000円（推定）",
       "currentPrice": "中古カートリッジ約2,500〜6,000円、箱説付きは1万円超も"
     },
-    "informationURLs": [
-      "https://game.dancing-doll.com/family-computer/fc-games/donkey-kong/",
-      "https://ja.wikipedia.org/wiki/ドンキーコング"
-    ],
     "imageUrl": "https://live.staticflickr.com/1190/5099954526_a6e2ef146b_o.jpg",
     "wikipediaUrl": "https://ja.wikipedia.org/wiki/ドンキーコング",
-    "credibility": 95
+    "credibility": 95,
+    "delete": 0
   },
   {
     "title": "ドンキーコングJR.",
@@ -49,13 +46,10 @@
       "originalPrice": "約5,000円前後（推定）",
       "currentPrice": "中古カートリッジ約1,500〜4,000円、箱説付き7,000円前後"
     },
-    "informationURLs": [
-      "https://game.dancing-doll.com/family-computer/fc-games/donkey-kong-jr/",
-      "https://ja.wikipedia.org/wiki/ドンキーコングJR."
-    ],
     "imageUrl": "https://game.dancing-doll.com/family-computer/fc-games/img/fc-donkeyjr.jpg",
     "wikipediaUrl": "https://ja.wikipedia.org/wiki/ドンキーコングJR.",
-    "credibility": 94
+    "credibility": 94,
+    "delete": 0
   },
   {
     "title": "ダックハント",
@@ -78,15 +72,11 @@
       "originalPrice": "約5,800円前後（推定）",
       "currentPrice": "中古カートリッジ約1,500〜4,000円、箱説付き5,000円超"
     },
-    "informationURLs": [
-      "https://game.dancing-doll.com/family-computer/fc-games/duckhunt/",
-      "https://ja.wikipedia.org/wiki/ダックハント"
-    ],
     "imageUrl": "https://game.dancing-doll.com/family-computer/fc-games/img/fc-duckhunt.jpg",
     "wikipediaUrl": "https://ja.wikipedia.org/wiki/ダックハント",
-    "credibility": 95
+    "credibility": 95,
+    "delete": 0
   },
-
   {
     "title": "アイスクライマー",
     "publisher": "任天堂",
@@ -109,13 +99,10 @@
       "originalPrice": "4,500円",
       "currentPrice": "中古カートリッジ 2,000〜4,000円、箱説付き7,000円超"
     },
-    "informationURLs": [
-      "https://game.dancing-doll.com/family-computer/fc-games/ice-climber/",
-      "https://ja.wikipedia.org/wiki/Ice_Climber"
-    ],
     "imageUrl": "https://game.dancing-doll.com/family-computer/fc-games/img/fc-iceclimber.jpg",
     "wikipediaUrl": "https://ja.wikipedia.org/wiki/Ice_Climber",
-    "credibility": 93
+    "credibility": 93,
+    "delete": 0
   },
   {
     "title": "迷宮組曲 ～ミロンの大冒険～",
@@ -137,13 +124,10 @@
       "originalPrice": "4,900円",
       "currentPrice": "中古カートリッジ 2,500〜6,000円、箱説付き1万円近く"
     },
-    "informationURLs": [
-      "https://game.dancing-doll.com/family-computer/fc-games/meikyuu/",
-      "https://ja.wikipedia.org/wiki/迷宮組曲"
-    ],
     "imageUrl": "https://game.dancing-doll.com/family-computer/fc-games/img/fc-meikyuu.jpg",
     "wikipediaUrl": "https://ja.wikipedia.org/wiki/迷宮組曲",
-    "credibility": 91
+    "credibility": 91,
+    "delete": 0
   },
   {
     "title": "スペランカー",
@@ -165,13 +149,10 @@
       "originalPrice": "4,900円",
       "currentPrice": "中古カートリッジ 1,500〜4,000円、箱説付き7,000円前後"
     },
-    "informationURLs": [
-      "https://game.dancing-doll.com/family-computer/fc-games/spelunker/",
-      "https://ja.wikipedia.org/wiki/スペランカー"
-    ],
     "imageUrl": "https://game.dancing-doll.com/family-computer/fc-games/img/fc-spelunker.jpg",
     "wikipediaUrl": "https://ja.wikipedia.org/wiki/スペランカー",
-    "credibility": 92
+    "credibility": 92,
+    "delete": 0
   },
   {
     "title": "バンゲリングベイ",
@@ -193,13 +174,10 @@
       "originalPrice": "4,900円",
       "currentPrice": "中古カートリッジ 2,000〜5,000円、箱説付き8,000円前後"
     },
-    "informationURLs": [
-      "https://game.dancing-doll.com/family-computer/fc-games/bangering/",
-      "https://ja.wikipedia.org/wiki/バンゲリングベイ"
-    ],
     "imageUrl": "https://game.dancing-doll.com/family-computer/fc-games/img/fc-bangering.jpg",
     "wikipediaUrl": "https://ja.wikipedia.org/wiki/バンゲリングベイ",
-    "credibility": 92
+    "credibility": 92,
+    "delete": 0
   },
   {
     "title": "ロードランナー",
@@ -221,13 +199,10 @@
       "originalPrice": "4,900円",
       "currentPrice": "中古カートリッジ 2,500〜6,000円、箱説付き1万円前後"
     },
-    "informationURLs": [
-      "https://game.dancing-doll.com/family-computer/fc-games/loderunner/",
-      "https://ja.wikipedia.org/wiki/ロードランナー"
-    ],
     "imageUrl": "https://game.dancing-doll.com/family-computer/fc-games/img/fc-loderunner.jpg",
     "wikipediaUrl": "https://ja.wikipedia.org/wiki/ロードランナー",
-    "credibility": 93
+    "credibility": 93,
+    "delete": 0
   },
   {
     "title": "ゼビウス",
@@ -247,13 +222,10 @@
       "originalPrice": "4,500円（定価）",
       "currentPrice": "中古カートリッジで10‑25ドル程度"
     },
-    "informationURLs": [
-      "https://ja.wikipedia.org/wiki/ゼビウス",
-      "https://www.bandainamcoent.co.jp/cs/list/xevious/"
-    ],
     "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/6/6a/Xevious_Famicom_Cover.jpg",
     "wikipediaUrl": "https://ja.wikipedia.org/wiki/ゼビウス",
-    "credibility": 93
+    "credibility": 93,
+    "delete": 0
   },
   {
     "title": "マッピー",
@@ -273,13 +245,10 @@
       "originalPrice": "4,500円（定価）",
       "currentPrice": "中古カートリッジで10‑20ドル程度"
     },
-    "informationURLs": [
-      "https://ja.wikipedia.org/wiki/マッピー",
-      "https://www.bandainamcoent.co.jp/cs/list/mappy/"
-    ],
     "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/0/0a/Mappy_Famicom_Cover.jpg",
     "wikipediaUrl": "https://ja.wikipedia.org/wiki/マッピー",
-    "credibility": 92
+    "credibility": 92,
+    "delete": 0
   },
   {
     "title": "バルーンファイト",
@@ -299,13 +268,10 @@
       "originalPrice": "4,900円（定価）",
       "currentPrice": "中古カートリッジで15‑25ドル程度"
     },
-    "informationURLs": [
-      "https://ja.wikipedia.org/wiki/バルーンファイト",
-      "https://www.nintendo.co.jp/n02/shvc/bf/"
-    ],
     "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/7/7a/Balloon_Fight_Famicom_Cover.jpg",
     "wikipediaUrl": "https://ja.wikipedia.org/wiki/バルーンファイト",
-    "credibility": 93
+    "credibility": 93,
+    "delete": 0
   },
   {
     "title": "クルクルランド",
@@ -327,11 +293,8 @@
       "currentPrice": "中古カートリッジ 1,000〜3,000円、箱説付きは1万円超も（2024年相場）"
     },
     "imageURL": "https://www.retrogames.co.uk/upload/PROD_IMAGES/NIN-NESCLCL-1.jpg",
-    "informationURLs": [
-      "https://game.dancing-doll.com/family-computer/fc-games/kurukuruland/",
-      "https://www.nintendo.co.jp/cluclu/"
-    ],
-    "credibility": 92
+    "credibility": 92,
+    "delete": 0
   },
   {
     "title": "パックマン",
@@ -353,11 +316,8 @@
       "currentPrice": "中古カートリッジ 2,000〜4,000円、状態極上・箱説完備で8,000円以上"
     },
     "imageURL": "https://s3-ap-northeast-1.amazonaws.com/videogames-omega-image/large/201708141758295066.jpg",
-    "informationURLs": [
-      "https://game.dancing-doll.com/family-computer/fc-games/pacman/",
-      "https://www.bandainamcoent.co.jp/cs/list/pacman/"
-    ],
-    "credibility": 93
+    "credibility": 93,
+    "delete": 0
   },
   {
     "title": "スパルタンX",
@@ -379,11 +339,8 @@
       "currentPrice": "中古カートリッジ 1,200〜3,500円、箱説付きは8,000円前後"
     },
     "imageURL": "https://game.dancing-doll.com/family-computer/fc-games/img/fc-spartanx.jpg",
-    "informationURLs": [
-      "https://game.dancing-doll.com/family-computer/fc-games/spartanx/",
-      "https://www.retrogames.co.uk/010046/Nintendo/Nintendo-NES-Spartan-X"
-    ],
-    "credibility": 94
+    "credibility": 94,
+    "delete": 0
   },
   {
     "title": "ハイパーオリンピック",
@@ -405,11 +362,8 @@
       "currentPrice": "中古カートリッジ 1,000〜3,000円、箱説付き5,000円超"
     },
     "imageURL": "https://game.dancing-doll.com/family-computer/fc-games/img/fc-hyperolympic.jpg",
-    "informationURLs": [
-      "https://game.dancing-doll.com/family-computer/fc-games/hyperolympic/",
-      "https://www.konami.com/games/corporate/ja/products/detail.php?id=489"
-    ],
-    "credibility": 93
+    "credibility": 93,
+    "delete": 0
   },
   {
     "title": "ドアドア",
@@ -431,11 +385,8 @@
       "currentPrice": "中古カートリッジ 2,000〜6,000円、箱説付き1万円超も"
     },
     "imageURL": "https://www.suruga-ya.jp/database/pics_light/game/180008057.jpg",
-    "informationURLs": [
-      "https://game.dancing-doll.com/family-computer/fc-games/doordoor/",
-      "https://ja.wikipedia.org/wiki/ドアドア"
-    ],
-    "credibility": 93
+    "credibility": 93,
+    "delete": 0
   },
   {
     "title": "ドルアーガの塔",
@@ -457,11 +408,8 @@
       "currentPrice": "中古カートリッジ 1,500〜4,500円、箱説付きは7,000円超"
     },
     "imageURL": "https://game.dancing-doll.com/family-computer/fc-games/img/fc-druaga.jpg",
-    "informationURLs": [
-      "https://game.dancing-doll.com/family-computer/fc-games/druaga/",
-      "https://www.bandainamcoent.co.jp/cs/list/druaga/"
-    ],
-    "credibility": 94
+    "credibility": 94,
+    "delete": 0
   },
   {
     "title": "バトルシティー",
@@ -483,11 +431,8 @@
       "currentPrice": "中古カートリッジ 1,800〜4,000円、箱説付きは7,000円超"
     },
     "imageURL": "https://game.dancing-doll.com/family-computer/fc-games/img/fc-battlecity.jpg",
-    "informationURLs": [
-      "https://game.dancing-doll.com/family-computer/fc-games/battlecity/",
-      "https://www.bandainamcoent.co.jp/cs/list/battlecity/"
-    ],
-    "credibility": 94
+    "credibility": 94,
+    "delete": 0
   },
   {
     "title": "プーヤン",
@@ -509,11 +454,8 @@
       "currentPrice": "中古カートリッジ 1,200〜3,500円、箱説付き6,000円前後"
     },
     "imageURL": "https://game.dancing-doll.com/family-computer/fc-games/img/fc-pooyan.jpg",
-    "informationURLs": [
-      "https://game.dancing-doll.com/family-computer/fc-games/pooyan/",
-      "https://ja.wikipedia.org/wiki/プーヤン"
-    ],
-    "credibility": 93
+    "credibility": 93,
+    "delete": 0
   },
   {
     "title": "シティコネクション",
@@ -535,11 +477,8 @@
       "currentPrice": "中古カートリッジ 2,000〜5,000円、箱説付き1万円前後"
     },
     "imageURL": "https://game.dancing-doll.com/family-computer/fc-games/img/fc-cityconnection.jpg",
-    "informationURLs": [
-      "https://game.dancing-doll.com/family-computer/fc-games/cityconnection/",
-      "https://ja.wikipedia.org/wiki/シティコネクション"
-    ],
-    "credibility": 93
+    "credibility": 93,
+    "delete": 0
   },
   {
     "title": "チャレンジャー",
@@ -564,11 +503,8 @@
       "currentPrice": "中古カートリッジ 1,500〜3,500円、箱説付き7,000円前後"
     },
     "imageURL": "https://game.dancing-doll.com/family-computer/fc-games/img/fc-challenger.jpg",
-    "informationURLs": [
-      "https://game.dancing-doll.com/family-computer/fc-games/challenger/",
-      "https://ja.wikipedia.org/wiki/チャレンジャー_(ゲーム)"
-    ],
-    "credibility": 93
+    "credibility": 93,
+    "delete": 0
   },
   {
     "title": "スターラスター",
@@ -592,11 +528,8 @@
       "currentPrice": "中古カートリッジ 1,000〜3,000円、箱説付き6,000円前後"
     },
     "imageURL": "https://game.dancing-doll.com/family-computer/fc-games/img/fc-starluster.jpg",
-    "informationURLs": [
-      "https://game.dancing-doll.com/family-computer/fc-games/starluster/",
-      "https://ja.wikipedia.org/wiki/スターラスター"
-    ],
-    "credibility": 93
+    "credibility": 93,
+    "delete": 0
   },
   {
     "title": "カラテカ",
@@ -619,11 +552,8 @@
       "currentPrice": "中古カートリッジ 2,000〜5,000円、箱説付きは9,000円前後"
     },
     "imageURL": "https://game.dancing-doll.com/family-computer/fc-games/img/fc-karateka.jpg",
-    "informationURLs": [
-      "https://game.dancing-doll.com/family-computer/fc-games/karateka/",
-      "https://ja.wikipedia.org/wiki/カラテカ"
-    ],
-    "credibility": 92
+    "credibility": 92,
+    "delete": 0
   },
   {
     "title": "ポートピア連続殺人事件",
@@ -648,11 +578,8 @@
       "currentPrice": "中古カートリッジ 2,500〜7,000円、箱説付きは1万円超も"
     },
     "imageURL": "https://game.dancing-doll.com/family-computer/fc-games/img/fc-portopia.jpg",
-    "informationURLs": [
-      "https://game.dancing-doll.com/family-computer/fc-games/portopia/",
-      "https://ja.wikipedia.org/wiki/ポートピア連続殺人事件"
-    ],
-    "credibility": 95
+    "credibility": 95,
+    "delete": 0
   },
   {
     "title": "アトランチスの謎",
@@ -677,11 +604,8 @@
       "currentPrice": "中古カートリッジ 1,800〜5,000円、箱説付き8,000円前後"
     },
     "imageURL": "https://game.dancing-doll.com/family-computer/fc-games/img/fc-atlantis.jpg",
-    "informationURLs": [
-      "https://game.dancing-doll.com/family-computer/fc-games/atlantis/",
-      "https://ja.wikipedia.org/wiki/アトランチスの謎"
-    ],
-    "credibility": 93
+    "credibility": 93,
+    "delete": 0
   },
   {
     "title": "マイティボンジャック",
@@ -705,11 +629,8 @@
       "currentPrice": "中古カートリッジ 2,000〜5,000円、箱説付き1万円前後"
     },
     "imageURL": "https://game.dancing-doll.com/family-computer/fc-games/img/fc-mightybonjack.jpg",
-    "informationURLs": [
-      "https://game.dancing-doll.com/family-computer/fc-games/mightybonjack/",
-      "https://ja.wikipedia.org/wiki/マイティボンジャック"
-    ],
-    "credibility": 93
+    "credibility": 93,
+    "delete": 0
   },
   {
     "title": "グラディウス",
@@ -732,11 +653,8 @@
       "currentPrice": "中古カートリッジ 2,000〜6,000円、箱説付き1万円超"
     },
     "imageURL": "https://game.dancing-doll.com/family-computer/fc-games/img/fc-gradius.jpg",
-    "informationURLs": [
-      "https://game.dancing-doll.com/family-computer/fc-games/gradius/",
-      "https://www.konami.com/games/corporate/ja/products/detail.php?id=429"
-    ],
-    "credibility": 95
+    "credibility": 95,
+    "delete": 0
   },
   {
     "title": "スパイvsスパイ",
@@ -760,11 +678,8 @@
       "currentPrice": "中古カートリッジ 2,500〜6,000円、箱説付き8,000円超"
     },
     "imageURL": "https://game.dancing-doll.com/family-computer/fc-games/img/fc-spyvs.jpg",
-    "informationURLs": [
-      "https://game.dancing-doll.com/family-computer/fc-games/spyvs/",
-      "https://ja.wikipedia.org/wiki/スパイvsスパイ"
-    ],
-    "credibility": 93
+    "credibility": 93,
+    "delete": 0
   },
   {
     "title": "魔界村",
@@ -789,11 +704,8 @@
       "currentPrice": "中古カートリッジ 2,500〜8,000円、箱説付き1万円超"
     },
     "imageURL": "https://game.dancing-doll.com/family-computer/fc-games/img/fc-makaimura.jpg",
-    "informationURLs": [
-      "https://game.dancing-doll.com/family-computer/fc-games/makaimura/",
-      "https://ja.wikipedia.org/wiki/魔界村"
-    ],
-    "credibility": 94
+    "credibility": 94,
+    "delete": 0
   },
   {
     "title": "スターソルジャー",
@@ -818,11 +730,8 @@
       "currentPrice": "中古カートリッジ 2,000〜6,000円、箱説付き8,000円前後"
     },
     "imageURL": "https://game.dancing-doll.com/family-computer/fc-games/img/fc-starsoldier.jpg",
-    "informationURLs": [
-      "https://game.dancing-doll.com/family-computer/fc-games/starsoldier/",
-      "https://ja.wikipedia.org/wiki/スターソルジャー"
-    ],
-    "credibility": 94
+    "credibility": 94,
+    "delete": 0
   },
   {
     "title": "バベルの塔",
@@ -846,11 +755,8 @@
       "currentPrice": "中古カートリッジ 2,000〜6,000円、箱説付き1万円超"
     },
     "imageURL": "https://game.dancing-doll.com/family-computer/fc-games/img/fc-babel.jpg",
-    "informationURLs": [
-      "https://game.dancing-doll.com/family-computer/fc-games/babel/",
-      "https://ja.wikipedia.org/wiki/バベルの塔_(ゲーム)"
-    ],
-    "credibility": 94
+    "credibility": 94,
+    "delete": 0
   },
   {
     "title": "ソロモンの鍵",
@@ -874,11 +780,8 @@
       "currentPrice": "中古カートリッジ 2,500〜7,000円、箱説付き1万円前後"
     },
     "imageURL": "https://game.dancing-doll.com/family-computer/fc-games/img/fc-solomon.jpg",
-    "informationURLs": [
-      "https://game.dancing-doll.com/family-computer/fc-games/solomon/",
-      "https://ja.wikipedia.org/wiki/ソロモンの鍵"
-    ],
-    "credibility": 94
+    "credibility": 94,
+    "delete": 0
   },
   {
     "title": "がんばれゴエモン!からくり道中",
@@ -902,11 +805,8 @@
       "currentPrice": "中古カートリッジ 2,500〜7,000円、箱説付き1万円超"
     },
     "imageURL": "https://game.dancing-doll.com/family-computer/fc-games/img/fc-goemon.jpg",
-    "informationURLs": [
-      "https://game.dancing-doll.com/family-computer/fc-games/goemon/",
-      "https://ja.wikipedia.org/wiki/がんばれゴエモン!からくり道中"
-    ],
-    "credibility": 95
+    "credibility": 95,
+    "delete": 0
   },
   {
     "title": "ワルキューレの冒険 時の鍵伝説",
@@ -930,11 +830,8 @@
       "currentPrice": "中古カートリッジ 2,500〜8,000円、箱説付き1万円前後"
     },
     "imageURL": "https://game.dancing-doll.com/family-computer/fc-games/img/fc-valkyrie.jpg",
-    "informationURLs": [
-      "https://game.dancing-doll.com/family-computer/fc-games/valkyrie/",
-      "https://ja.wikipedia.org/wiki/ワルキューレの冒険_時の鍵伝説"
-    ],
-    "credibility": 94
+    "credibility": 94,
+    "delete": 0
   },
   {
     "title": "北斗の拳",
@@ -958,11 +855,8 @@
       "currentPrice": "中古カートリッジ 1,800〜5,000円、箱説付き8,000円前後"
     },
     "imageURL": "https://game.dancing-doll.com/family-computer/fc-games/img/fc-hokuto.jpg",
-    "informationURLs": [
-      "https://game.dancing-doll.com/family-computer/fc-games/hokuto/",
-      "https://ja.wikipedia.org/wiki/北斗の拳_(ファミリーコンピュータ)"
-    ],
-    "credibility": 93
+    "credibility": 93,
+    "delete": 0
   },
   {
     "title": "AKIRA",
@@ -987,11 +881,8 @@
       "currentPrice": "中古カートリッジ 7,000〜30,000円、箱説付きはさらに高額"
     },
     "imageURL": "https://www.suruga-ya.jp/database/pics_light/game/180009462.jpg",
-    "informationURLs": [
-      "https://ja.wikipedia.org/wiki/AKIRA_(ゲーム)",
-      "https://www.suruga-ya.jp/product-detail/180009462"
-    ],
-    "credibility": 92
+    "credibility": 92,
+    "delete": 0
   },
   {
     "title": "高橋名人の冒険島",
@@ -1015,11 +906,8 @@
       "currentPrice": "中古カートリッジ 1,800〜5,000円、箱説付き9,000円前後"
     },
     "imageURL": "https://game.dancing-doll.com/family-computer/fc-games/img/fc-takahashi.jpg",
-    "informationURLs": [
-      "https://game.dancing-doll.com/family-computer/fc-games/takahashi/",
-      "https://ja.wikipedia.org/wiki/高橋名人の冒険島"
-    ],
-    "credibility": 94
+    "credibility": 94,
+    "delete": 0
   },
   {
     "title": "キングスナイト",
@@ -1042,11 +930,8 @@
       "currentPrice": "中古カートリッジ 1,200〜4,000円、箱説付き7,000円前後"
     },
     "imageURL": "https://game.dancing-doll.com/family-computer/fc-games/img/fc-kingsknight.jpg",
-    "informationURLs": [
-      "https://game.dancing-doll.com/family-computer/fc-games/kingsknight/",
-      "https://ja.wikipedia.org/wiki/キングスナイト"
-    ],
-    "credibility": 93
+    "credibility": 93,
+    "delete": 0
   },
   {
     "title": "ミシシッピー殺人事件",
@@ -1069,11 +954,8 @@
       "currentPrice": "中古カートリッジ 1,500〜5,000円、箱説付き8,000円前後"
     },
     "imageURL": "https://game.dancing-doll.com/family-computer/fc-games/img/fc-mississippi.jpg",
-    "informationURLs": [
-      "https://game.dancing-doll.com/family-computer/fc-games/mississippi/",
-      "https://ja.wikipedia.org/wiki/ミシシッピー殺人事件"
-    ],
-    "credibility": 92
+    "credibility": 92,
+    "delete": 0
   },
   {
     "title": "アイギーナの予言",
@@ -1097,11 +979,8 @@
       "currentPrice": "中古カートリッジ 1,000〜3,000円、箱説付き6,000円前後"
     },
     "imageURL": "https://game.dancing-doll.com/family-computer/fc-games/img/fc-aigina.jpg",
-    "informationURLs": [
-      "https://game.dancing-doll.com/family-computer/fc-games/aigina/",
-      "https://ja.wikipedia.org/wiki/アイギーナの予言"
-    ],
-    "credibility": 93
+    "credibility": 93,
+    "delete": 0
   },
   {
     "title": "ドラゴンボール 神龍の謎",
@@ -1125,11 +1004,8 @@
       "currentPrice": "中古カートリッジ 1,500〜4,000円、箱説付き7,000円前後"
     },
     "imageURL": "https://game.dancing-doll.com/family-computer/fc-games/img/fc-db.jpg",
-    "informationURLs": [
-      "https://game.dancing-doll.com/family-computer/fc-games/db/",
-      "https://ja.wikipedia.org/wiki/ドラゴンボール_神龍の謎"
-    ],
-    "credibility": 93
+    "credibility": 93,
+    "delete": 0
   },
   {
     "title": "キャッスルエクセレント",
@@ -1154,11 +1030,8 @@
       "currentPrice": "中古カートリッジ 1,800〜6,000円、箱説付き9,000円前後"
     },
     "imageURL": "https://game.dancing-doll.com/family-computer/fc-games/img/fc-castle.jpg",
-    "informationURLs": [
-      "https://game.dancing-doll.com/family-computer/fc-games/castle/",
-      "https://ja.wikipedia.org/wiki/キャッスルエクセレント"
-    ],
-    "credibility": 93
+    "credibility": 93,
+    "delete": 0
   },
   {
     "title": "タイガーヘリ",
@@ -1181,11 +1054,8 @@
       "currentPrice": "中古カートリッジ 2,000〜5,000円、箱説付き9,000円前後"
     },
     "imageURL": "https://game.dancing-doll.com/family-computer/fc-games/img/fc-tigerheli.jpg",
-    "informationURLs": [
-      "https://game.dancing-doll.com/family-computer/fc-games/tigerheli/",
-      "https://ja.wikipedia.org/wiki/タイガーヘリ"
-    ],
-    "credibility": 92
+    "credibility": 92,
+    "delete": 0
   },
   {
     "title": "たけしの挑戦状",
@@ -1210,11 +1080,8 @@
       "currentPrice": "中古カートリッジ 2,500〜7,000円、箱説付き1万円超"
     },
     "imageURL": "https://game.dancing-doll.com/family-computer/fc-games/img/fc-takeshi.jpg",
-    "informationURLs": [
-      "https://game.dancing-doll.com/family-computer/fc-games/takeshi/",
-      "https://ja.wikipedia.org/wiki/たけしの挑戦状"
-    ],
-    "credibility": 94
+    "credibility": 94,
+    "delete": 0
   },
   {
     "title": "魔鐘",
@@ -1238,11 +1105,8 @@
       "currentPrice": "中古カートリッジ 2,500〜6,000円、箱説付き9,000円前後"
     },
     "imageURL": "https://game.dancing-doll.com/family-computer/fc-games/img/fc-mashou.jpg",
-    "informationURLs": [
-      "https://game.dancing-doll.com/family-computer/fc-games/mashou/",
-      "https://ja.wikipedia.org/wiki/魔鐘"
-    ],
-    "credibility": 93
+    "credibility": 93,
+    "delete": 0
   },
   {
     "title": "メトロクロス",
@@ -1265,11 +1129,8 @@
       "currentPrice": "中古カートリッジ 2,000〜5,000円、箱説付き8,000円前後"
     },
     "imageURL": "https://game.dancing-doll.com/family-computer/fc-games/img/fc-metro.jpg",
-    "informationURLs": [
-      "https://game.dancing-doll.com/family-computer/fc-games/metro/",
-      "https://ja.wikipedia.org/wiki/メトロクロス"
-    ],
-    "credibility": 93
+    "credibility": 93,
+    "delete": 0
   },
   {
     "title": "マドゥーラの翼",
@@ -1293,10 +1154,7 @@
       "currentPrice": "中古カートリッジ 2,000〜6,000円、箱説付き1万円前後"
     },
     "imageURL": "https://game.dancing-doll.com/family-computer/fc-games/img/fc-madura.jpg",
-    "informationURLs": [
-      "https://game.dancing-doll.com/family-computer/fc-games/madura/",
-      "https://ja.wikipedia.org/wiki/マドゥーラの翼"
-    ],
-    "credibility": 93
+    "credibility": 93,
+    "delete": 0
   }
 ]

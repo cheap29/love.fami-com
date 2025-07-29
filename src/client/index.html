@@ -3,11 +3,134 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- SEO Meta Tags -->
+    <title>
+      ファミコンソフトメモリアル -
+      1980年代ファミリーコンピュータ懐かしいゲーム情報検索
+    </title>
     <meta
       name="description"
-      content="ファミコンソフトの詳細情報を検索できるWebアプリ"
+      content="1980年代ファミリーコンピュータ（ファミコン）の懐かしいゲーム情報を検索できるサイト。ドンキーコング、スーパーマリオブラザーズ、ゼビウスなど名作ゲームの詳細情報、レビュー、豆知識を掲載。レトロゲーム愛好家必見のファミコンソフトデータベース。"
     />
-    <title>ファミコンソフトメモリアル</title>
+    <meta
+      name="keywords"
+      content="ファミコン,ファミリーコンピュータ,レトロゲーム,任天堂,ドンキーコング,スーパーマリオブラザーズ,ゼビウス,1980年代,ゲーム,懐かしい"
+    />
+    <meta name="author" content="ファミコンソフトメモリアル" />
+    <meta name="robots" content="index, follow" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://love.fami-com.com/" />
+    <meta
+      property="og:title"
+      content="ファミコンソフトメモリアル - 1980年代ファミリーコンピュータ懐かしいゲーム情報検索"
+    />
+    <meta
+      property="og:description"
+      content="1980年代ファミリーコンピュータ（ファミコン）の懐かしいゲーム情報を検索できるサイト。ドンキーコング、スーパーマリオブラザーズ、ゼビウスなど名作ゲームの詳細情報、レビュー、豆知識を掲載。"
+    />
+    <meta
+      property="og:image"
+      content="https://love.fami-com.com/img/og-image.jpg"
+    />
+    <meta property="og:site_name" content="ファミコンソフトメモリアル" />
+    <meta property="og:locale" content="ja_JP" />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://love.fami-com.com/" />
+    <meta
+      property="twitter:title"
+      content="ファミコンソフトメモリアル - 1980年代ファミリーコンピュータ懐かしいゲーム情報検索"
+    />
+    <meta
+      property="twitter:description"
+      content="1980年代ファミリーコンピュータ（ファミコン）の懐かしいゲーム情報を検索できるサイト。ドンキーコング、スーパーマリオブラザーズ、ゼビウスなど名作ゲームの詳細情報、レビュー、豆知識を掲載。"
+    />
+    <meta
+      property="twitter:image"
+      content="https://love.fami-com.com/img/og-image.jpg"
+    />
+
+    <!-- Additional SEO -->
+    <meta name="theme-color" content="#0969da" />
+    <meta name="msapplication-TileColor" content="#0969da" />
+    <link rel="canonical" href="https://love.fami-com.com/" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+
+    <!-- Preconnect for performance -->
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+
+    <!-- Stylesheets -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "ファミコンソフトメモリアル",
+        "description": "1980年代ファミリーコンピュータ（ファミコン）の懐かしいゲーム情報を検索できるサイト",
+        "url": "https://love.fami-com.com/",
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": "https://love.fami-com.com/?search={search_term_string}",
+          "query-input": "required name=search_term_string"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "ファミコンソフトメモリアル"
+        },
+        "inLanguage": "ja-JP"
+      }
+    </script>
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "ItemList",
+        "name": "ファミコンゲーム一覧",
+        "description": "1980年代ファミリーコンピュータのゲーム一覧",
+        "numberOfItems": 47,
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "item": {
+              "@type": "VideoGame",
+              "name": "ドンキーコング",
+              "description": "ファミコン本体と同時発売されたアーケード移植の決定版",
+              "publisher": "任天堂",
+              "datePublished": "1983",
+              "genre": "アクション（固定画面型）"
+            }
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "item": {
+              "@type": "VideoGame",
+              "name": "スーパーマリオブラザーズ",
+              "description": "マリオとルイージがクッパを倒してピーチ姫を救う横スクロールアクション",
+              "publisher": "任天堂",
+              "datePublished": "1985",
+              "genre": "アクション（横スクロール）"
+            }
+          }
+        ]
+      }
+    </script>
   </head>
   <body>
     <div class="container">
@@ -24,31 +147,64 @@
           id="searchInput"
           class="search-input"
           placeholder="タイトル、説明、レビューコメントで検索..."
+          aria-label="ゲームを検索"
         />
         <!-- 50音順一覧トグルボタンを追加 -->
-        <button id="gameListToggle" class="list-toggle-btn" type="button">
+        <button
+          id="gameListToggle"
+          class="list-toggle-btn"
+          type="button"
+          aria-label="50音順ゲーム一覧を表示"
+        >
           📋 50音順一覧
         </button>
         <!-- データ追加ボタンを追加 -->
-        <button id="addGameBtn" class="add-game-btn" type="button">
-          ➕ ゲーム追加
+        <button
+          id="addGameBtn"
+          class="add-game-btn"
+          type="button"
+          aria-label="ゲーム管理画面を開く"
+        >
+          ➕ ゲーム管理
         </button>
       </section>
 
-      <main id="gamesContainer" class="games-container">
+      <main id="gamesContainer" class="games-container" role="main">
         <div class="loading">読み込み中...</div>
       </main>
     </div>
 
+    <!-- トースト通知コンテナ -->
+    <div
+      id="toastContainer"
+      class="toast-container"
+      aria-live="polite"
+      aria-atomic="true"
+    ></div>
+
     <!-- 50音順一覧オーバーレイを追加 -->
-    <div id="gameListOverlay" class="game-list-overlay hidden">
+    <div
+      id="gameListOverlay"
+      class="game-list-overlay hidden"
+      role="dialog"
+      aria-labelledby="gameListTitle"
+    >
       <div class="game-list-container">
         <div class="game-list-header">
           <div class="game-list-title-section">
-            <h2 class="game-list-title">📋 ゲーム一覧（50音順）</h2>
+            <h2 id="gameListTitle" class="game-list-title">
+              📋 ゲーム一覧（50音順）
+            </h2>
             <span id="gameCount" class="game-count">0件</span>
           </div>
-          <button id="gameListClose" class="close-btn" type="button">✕</button>
+          <button
+            id="gameListClose"
+            class="close-btn"
+            type="button"
+            aria-label="一覧を閉じる"
+          >
+            ✕
+          </button>
         </div>
         <div id="gameListContent" class="game-list-content">
           <div class="loading">読み込み中...</div>
@@ -56,12 +212,122 @@
       </div>
     </div>
 
-    <!-- ゲーム追加モーダル -->
-    <div id="addGameModal" class="modal-overlay hidden">
+    <!-- ゲーム管理モーダル -->
+    <div
+      id="gameManagementModal"
+      class="modal-overlay hidden"
+      role="dialog"
+      aria-labelledby="gameManagementTitle"
+    >
+      <div class="modal-container game-management-modal">
+        <div class="modal-header">
+          <h2 id="gameManagementTitle" class="modal-title">🎮 ゲーム管理</h2>
+          <button
+            id="gameManagementClose"
+            class="close-btn"
+            type="button"
+            aria-label="モーダルを閉じる"
+          >
+            ✕
+          </button>
+        </div>
+        <div class="modal-content">
+          <!-- 追加ボタン -->
+          <div class="add-game-section">
+            <button id="showAddFormBtn" class="add-form-btn" type="button">
+              ➕ 新しいゲームを追加
+            </button>
+          </div>
+
+          <!-- 追加フォーム（初期状態では非表示） -->
+          <div id="addGameForm" class="add-game-form hidden">
+            <div class="form-group">
+              <label for="gameTitle">タイトル:</label>
+              <input
+                type="text"
+                id="gameTitle"
+                class="form-input"
+                placeholder="ゲームタイトルを入力..."
+              />
+            </div>
+            <div class="form-group">
+              <label for="gamePublisher">メーカー:</label>
+              <input
+                type="text"
+                id="gamePublisher"
+                class="form-input"
+                placeholder="メーカー名を入力..."
+              />
+            </div>
+            <div class="form-group">
+              <label for="gameReleaseYear">発売年:</label>
+              <input
+                type="number"
+                id="gameReleaseYear"
+                class="form-input"
+                placeholder="1983"
+                min="1983"
+                max="1994"
+              />
+            </div>
+            <div class="form-group">
+              <label for="gameGenre">ジャンル:</label>
+              <input
+                type="text"
+                id="gameGenre"
+                class="form-input"
+                placeholder="アクション、RPGなど..."
+              />
+            </div>
+            <div class="form-group">
+              <label for="gameDescription">説明:</label>
+              <textarea
+                id="gameDescription"
+                class="form-textarea"
+                placeholder="ゲームの説明を入力..."
+              ></textarea>
+            </div>
+            <div class="form-actions">
+              <button id="registerGameBtn" class="register-btn" type="button">
+                💾 登録
+              </button>
+              <button id="cancelAddBtn" class="cancel-btn" type="button">
+                ❌ キャンセル
+              </button>
+            </div>
+          </div>
+
+          <!-- ゲーム一覧 -->
+          <div class="game-list-section">
+            <h3 class="game-list-title">📋 現在のゲーム一覧</h3>
+            <div id="managementGameList" class="management-game-list">
+              <div class="loading">読み込み中...</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 古いゲーム追加モーダル（削除予定） -->
+    <div
+      id="addGameModal"
+      class="modal-overlay hidden"
+      role="dialog"
+      aria-labelledby="addGameModalTitle"
+    >
       <div class="modal-container">
         <div class="modal-header">
-          <h2 class="modal-title">🎮 ゲームデータ追加</h2>
-          <button id="modalClose" class="close-btn" type="button">✕</button>
+          <h2 id="addGameModalTitle" class="modal-title">
+            🎮 ゲームデータ追加
+          </h2>
+          <button
+            id="modalClose"
+            class="close-btn"
+            type="button"
+            aria-label="モーダルを閉じる"
+          >
+            ✕
+          </button>
         </div>
         <div class="modal-content">
           <div class="form-group">

@@ -163,6 +163,13 @@ add_action('rest_api_init', function () {
         'callback' => 'add_famicom_game',
         'permission_callback' => '__return_true'
     ));
+
+    // ゲーム更新API（削除フラグ更新用）
+    register_rest_route('famicom/v1', '/games/(?P<id>\d+)', array(
+        'methods' => 'PUT',
+        'callback' => 'update_famicom_game',
+        'permission_callback' => '__return_true'
+    ));
 });
 
 
@@ -185,10 +192,46 @@ function add_famicom_game($request) {
     
     try {
         $games = file_exists($data_file) ? json_decode(file_get_contents($data_file), true) : [];
+        
+        // deleteキーが設定されていない場合は0を設定
+        if (!isset($params['delete'])) {
+            $params['delete'] = 0;
+        }
+        
         $games[] = $params;
         file_put_contents($data_file, json_encode($games, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
         
         return array('success' => true, 'message' => 'Game added successfully');
+    } catch (Exception $e) {
+        return array('success' => false, 'message' => $e->getMessage());
+    }
+}
+
+// ゲーム更新関数（削除フラグ更新用）
+function update_famicom_game($request) {
+    $game_id = intval($request['id']);
+    $params = $request->get_params();
+    $data_file = get_template_directory() . '/data/games.json';
+    
+    try {
+        if (!file_exists($data_file)) {
+            return array('success' => false, 'message' => 'Games file not found');
+        }
+        
+        $games = json_decode(file_get_contents($data_file), true);
+        
+        if (!is_array($games) || $game_id < 0 || $game_id >= count($games)) {
+            return array('success' => false, 'message' => 'Invalid game ID');
+        }
+        
+        // 削除フラグの更新
+        if (isset($params['delete'])) {
+            $games[$game_id]['delete'] = intval($params['delete']);
+        }
+        
+        file_put_contents($data_file, json_encode($games, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+        
+        return array('success' => true, 'message' => 'Game updated successfully');
     } catch (Exception $e) {
         return array('success' => false, 'message' => $e->getMessage());
     }
