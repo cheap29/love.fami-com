@@ -164,15 +164,9 @@ class FamicomSearchApp {
     const gameListToggle = document.getElementById("gameListToggle");
     const addGameBtn = document.getElementById("addGameBtn");
     const gameListClose = document.getElementById("gameListClose");
-    const modalClose = document.getElementById("modalClose");
-    const saveGameBtn = document.getElementById("saveGameBtn");
-    const cancelBtn = document.getElementById("cancelBtn");
-
-    // ゲーム管理モーダル関連
     const gameManagementClose = document.getElementById("gameManagementClose");
-    const showAddFormBtn = document.getElementById("showAddFormBtn");
-    const cancelAddBtn = document.getElementById("cancelAddBtn");
-    const registerGameBtn = document.getElementById("registerGameBtn");
+    const saveGameBtn = document.getElementById("saveGameBtn");
+    const clearFormBtn = document.getElementById("clearFormBtn");
 
     // 検索機能
     searchInput.addEventListener("input", () => {
@@ -191,15 +185,9 @@ class FamicomSearchApp {
       this.hideGameManagementModal()
     );
 
-    // 追加フォーム関連
-    showAddFormBtn.addEventListener("click", () => this.showAddGameForm());
-    cancelAddBtn.addEventListener("click", () => this.hideAddGameForm());
-    registerGameBtn.addEventListener("click", () => this.registerNewGame());
-
-    // 古いゲーム追加モーダル（削除予定）
-    modalClose.addEventListener("click", () => this.hideAddGameModal());
-    cancelBtn.addEventListener("click", () => this.hideAddGameModal());
+    // ゲーム追加関連
     saveGameBtn.addEventListener("click", () => this.saveGameData());
+    clearFormBtn.addEventListener("click", () => this.clearGameForm());
   }
 
   // ゲーム一覧の表示
@@ -448,70 +436,65 @@ class FamicomSearchApp {
   // ゲーム管理モーダルの非表示
   hideGameManagementModal() {
     document.getElementById("gameManagementModal").classList.add("hidden");
-    this.hideAddGameForm();
+    this.clearGameForm();
   }
 
-  // 追加フォームの表示
-  showAddGameForm() {
-    document.getElementById("addGameForm").classList.remove("hidden");
-    document.getElementById("showAddFormBtn").style.display = "none";
+  // フォームをクリア
+  clearGameForm() {
+    document.getElementById("gameJsonTextarea").value = "";
   }
 
-  // 追加フォームの非表示
-  hideAddGameForm() {
-    document.getElementById("addGameForm").classList.add("hidden");
-    document.getElementById("showAddFormBtn").style.display = "block";
-
-    // フォームをクリア
-    document.getElementById("gameTitle").value = "";
-    document.getElementById("gamePublisher").value = "";
-    document.getElementById("gameReleaseYear").value = "";
-    document.getElementById("gameGenre").value = "";
-    document.getElementById("gameDescription").value = "";
+  // エラー表示
+  showError(message) {
+    const container = document.getElementById("gamesContainer");
+    container.innerHTML = `<div class="loading">${message}</div>`;
   }
 
-  // 新しいゲームを登録
-  async registerNewGame() {
-    const title = document.getElementById("gameTitle").value.trim();
-    const publisher = document.getElementById("gamePublisher").value.trim();
-    const releaseYear = parseInt(
-      document.getElementById("gameReleaseYear").value
-    );
-    const genre = document.getElementById("gameGenre").value.trim();
-    const description = document.getElementById("gameDescription").value.trim();
+  // ゲームデータを保存
+  async saveGameData() {
+    const textarea = document.getElementById("gameJsonTextarea");
+    const jsonText = textarea.value.trim();
 
-    if (!title || !publisher || !releaseYear || !genre || !description) {
-      this.showToast("すべての項目を入力してください。", "warning");
+    if (!jsonText) {
+      this.showToast("JSONデータを入力してください。", "warning");
       return;
     }
-
-    if (releaseYear < 1983 || releaseYear > 1994) {
-      this.showToast(
-        "発売年は1983年から1994年の間で入力してください。",
-        "warning"
-      );
-      return;
-    }
-
-    const newGame = {
-      title,
-      publisher,
-      releaseYear,
-      genre,
-      description,
-      reviewComments: [],
-      funFacts: [],
-      priceHistory: {
-        originalPrice: "未設定",
-        currentPrice: "未設定",
-      },
-      imageUrl: "./img/noimage.png",
-      wikipediaUrl: "",
-      credibility: 90,
-      delete: 0,
-    };
 
     try {
+      const newGame = JSON.parse(jsonText);
+
+      // 必須項目のチェック
+      if (!newGame.title || !newGame.publisher || !newGame.releaseYear) {
+        this.showToast("タイトル、メーカー、発売年は必須です。", "warning");
+        return;
+      }
+
+      // 発売年の範囲チェック
+      if (newGame.releaseYear < 1983 || newGame.releaseYear > 1994) {
+        this.showToast(
+          "発売年は1983年から1994年の間で入力してください。",
+          "warning"
+        );
+        return;
+      }
+
+      // 重複チェック
+      const existingGame = this.games.find(
+        (game) => game.title === newGame.title
+      );
+      if (existingGame) {
+        this.showToast(
+          `「${newGame.title}」は既に登録されています。`,
+          "warning"
+        );
+        return;
+      }
+
+      // deleteキーが設定されていない場合は0を設定
+      if (newGame.delete === undefined) {
+        newGame.delete = 0;
+      }
+
       // WordPress APIに送信
       const response = await fetch("/wp-json/famicom/v1/games", {
         method: "POST",
@@ -528,73 +511,20 @@ class FamicomSearchApp {
       const result = await response.json();
 
       if (result.success) {
-        this.showToast("ゲームを追加しました！", "success");
-        this.hideAddGameForm();
-        this.hideGameManagementModal(); // モーダルを閉じる
+        this.showToast(`「${newGame.title}」を追加しました！`, "success");
+        this.clearGameForm();
+        this.hideGameManagementModal();
         this.loadData(); // データを再読み込み
       } else {
         this.showToast(`エラー: ${result.message}`, "error");
       }
     } catch (error) {
-      console.error("登録エラー:", error);
-      this.showToast("登録に失敗しました。", "error");
-    }
-  }
-
-  // ゲーム追加モーダルの表示
-  showAddGameModal() {
-    document.getElementById("addGameModal").classList.remove("hidden");
-  }
-
-  // ゲーム追加モーダルの非表示
-  hideAddGameModal() {
-    document.getElementById("addGameModal").classList.add("hidden");
-    document.getElementById("gameJsonTextarea").value = "";
-  }
-
-  // エラー表示
-  showError(message) {
-    const container = document.getElementById("gamesContainer");
-    container.innerHTML = `<div class="loading">${message}</div>`;
-  }
-
-  async saveGameData() {
-    const textarea = document.getElementById("gameJsonTextarea");
-    const jsonText = textarea.value.trim();
-
-    try {
-      const newGame = JSON.parse(jsonText);
-
-      if (!newGame.title || !newGame.publisher || !newGame.releaseYear) {
-        this.showToast("タイトル、メーカー、発売年は必須です。", "warning");
-        return;
-      }
-
-      // WordPress APIに送信（相対パス）
-      const response = await fetch("/wp-json/famicom/v1/games", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(newGame),
-      });
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
-      const result = await response.json();
-
-      if (result.success) {
-        this.showToast("ゲームデータを追加しました！", "success");
-        this.hideAddGameModal();
-        this.loadData(); // データを再読み込み
+      if (error.name === "SyntaxError") {
+        this.showToast("JSONの形式が正しくありません。", "error");
       } else {
-        this.showToast(`エラー: ${result.message}`, "error");
+        console.error("保存エラー:", error);
+        this.showToast("保存に失敗しました。", "error");
       }
-    } catch (error) {
-      console.error("保存エラー:", error);
-      this.showToast("保存に失敗しました。", "error");
     }
   }
 }
