@@ -11,6 +11,7 @@ class FamicomSearchApp {
   async init() {
     await this.loadData();
     this.setupEventListeners();
+    this.updateStructuredData();
   }
 
   async loadData() {
@@ -24,6 +25,7 @@ class FamicomSearchApp {
       this.sortedGames = this.sortGamesByJapanese(this.games);
       this.renderGames(this.games);
       this.renderGameList();
+      this.updateStructuredData();
     } catch (error) {
       console.error("データ読み込み失敗:", error);
       this.showError("データの読み込みに失敗しました");
@@ -41,6 +43,69 @@ class FamicomSearchApp {
       );
       return titleA.localeCompare(titleB, "ja");
     });
+  }
+
+  // 構造化データを動的に更新
+  updateStructuredData() {
+    const activeGames = this.games.filter((game) => game.delete !== 1);
+
+    // ItemListの構造化データを更新
+    const itemListData = {
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      name: "ファミコンゲーム一覧",
+      description: "1980年代ファミリーコンピュータのゲーム一覧",
+      numberOfItems: activeGames.length,
+      itemListElement: activeGames.slice(0, 10).map((game, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        item: {
+          "@type": "VideoGame",
+          name: game.title,
+          description: game.description,
+          publisher: game.publisher,
+          datePublished: game.releaseYear.toString(),
+          genre: game.genre,
+          image: game.imageUrl || "./img/noimage.png",
+        },
+      })),
+    };
+
+    // 既存の構造化データを更新
+    let existingScript = document.querySelector(
+      'script[type="application/ld+json"]:nth-of-type(2)'
+    );
+    if (existingScript) {
+      existingScript.textContent = JSON.stringify(itemListData, null, 2);
+    } else {
+      const script = document.createElement("script");
+      script.type = "application/ld+json";
+      script.textContent = JSON.stringify(itemListData, null, 2);
+      document.head.appendChild(script);
+    }
+  }
+
+  // ページタイトルとメタタグを更新
+  updatePageMeta(searchQuery = "") {
+    const baseTitle =
+      "ファミコンソフトメモリアル - 1980年代ファミリーコンピュータ懐かしいゲーム情報検索";
+    const baseDescription =
+      "1980年代ファミリーコンピュータ（ファミコン）の懐かしいゲーム情報を検索できるサイト。ドンキーコング、スーパーマリオブラザーズ、ゼビウスなど名作ゲームの詳細情報、レビュー、豆知識を掲載。レトロゲーム愛好家必見のファミコンソフトデータベース。";
+
+    if (searchQuery) {
+      document.title = `「${searchQuery}」の検索結果 - ${baseTitle}`;
+      document
+        .querySelector('meta[name="description"]')
+        .setAttribute(
+          "content",
+          `「${searchQuery}」で検索したファミコンゲームの結果を表示。${baseDescription}`
+        );
+    } else {
+      document.title = baseTitle;
+      document
+        .querySelector('meta[name="description"]')
+        .setAttribute("content", baseDescription);
+    }
   }
 
   // トースト通知を表示する関数
@@ -110,7 +175,11 @@ class FamicomSearchApp {
     const registerGameBtn = document.getElementById("registerGameBtn");
 
     // 検索機能
-    searchInput.addEventListener("input", () => this.filterGames());
+    searchInput.addEventListener("input", () => {
+      this.filterGames();
+      // 検索時にメタタグを更新
+      this.updatePageMeta(searchInput.value);
+    });
 
     // 50音順一覧トグル
     gameListToggle.addEventListener("click", () => this.showGameList());
@@ -164,7 +233,7 @@ class FamicomSearchApp {
     // wikipediaUrlがnullや空の場合はリンクを張らない
     const titleElement =
       wikipediaUrl && wikipediaUrl.trim() !== ""
-        ? `<a href="${wikipediaUrl}" target="_blank" class="game-title-link">
+        ? `<a href="${wikipediaUrl}" target="_blank" class="game-title-link" rel="noopener noreferrer">
            ${game.title}<i class="fas fa-external-link-alt external-link-icon"></i>
          </a>`
         : `<span class="game-title">${game.title}</span>`;
@@ -173,7 +242,7 @@ class FamicomSearchApp {
       <div class="game-image">
         <img src="${imageUrl}" alt="${
       game.title
-    }" onerror="this.src='./img/noimage.png'">
+    }" onerror="this.src='./img/noimage.png'" loading="lazy">
       </div>
       <div class="game-content">
         ${titleElement}
@@ -321,6 +390,7 @@ class FamicomSearchApp {
         this.renderGames(this.games);
         this.renderManagementGameList();
         this.renderGameList();
+        this.updateStructuredData();
 
         const action = newDeleteValue === 1 ? "削除" : "復元";
         this.showToast(`ゲームを${action}しました！`, "success");
@@ -435,7 +505,6 @@ class FamicomSearchApp {
         originalPrice: "未設定",
         currentPrice: "未設定",
       },
-      informationURLs: [],
       imageUrl: "./img/noimage.png",
       wikipediaUrl: "",
       credibility: 90,

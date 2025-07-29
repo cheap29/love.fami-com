@@ -47,6 +47,11 @@ module.exports = (env, argv) => {
         : []),
       new CopyWebpackPlugin({
         patterns: [
+          // robots.txtファイル
+          {
+            from: "src/client/robots.txt",
+            to: "famicon/robots.txt",
+          },
           // PHPファイルをWordPressテーマ構造にコピー
           {
             from: "server/functions.php",
@@ -68,10 +73,11 @@ module.exports = (env, argv) => {
     ],
     devServer: {
       static: {
-        directory: path.join(__dirname, "dist/famicon"),
+        directory: path.join(__dirname, "dist"),
       },
       compress: true,
       port: 8080,
+      hot: true,
     },
     devtool: isProduction ? "source-map" : "eval-source-map",
   };
