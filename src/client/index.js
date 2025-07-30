@@ -5,13 +5,29 @@ class FamicomSearchApp {
   constructor() {
     this.games = [];
     this.sortedGames = [];
+    this.isAdmin = this.checkAdminParameter();
     this.init();
+  }
+
+  // 管理者パラメータをチェック
+  checkAdminParameter() {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get("admin") === "2813";
   }
 
   async init() {
     await this.loadData();
     this.setupEventListeners();
     this.updateStructuredData();
+    this.updateAdminUI();
+  }
+
+  // 管理者UIの表示/非表示を更新
+  updateAdminUI() {
+    const addGameBtn = document.getElementById("addGameBtn");
+    if (addGameBtn) {
+      addGameBtn.style.display = this.isAdmin ? "block" : "none";
+    }
   }
 
   async loadData() {
@@ -162,11 +178,7 @@ class FamicomSearchApp {
   setupEventListeners() {
     const searchInput = document.getElementById("searchInput");
     const gameListToggle = document.getElementById("gameListToggle");
-    const addGameBtn = document.getElementById("addGameBtn");
     const gameListClose = document.getElementById("gameListClose");
-    const gameManagementClose = document.getElementById("gameManagementClose");
-    const saveGameBtn = document.getElementById("saveGameBtn");
-    const clearFormBtn = document.getElementById("clearFormBtn");
 
     // 検索機能
     searchInput.addEventListener("input", () => {
@@ -179,6 +191,21 @@ class FamicomSearchApp {
     gameListToggle.addEventListener("click", () => this.showGameList());
     gameListClose.addEventListener("click", () => this.hideGameList());
 
+    // 管理者機能のイベントリスナー（管理者の場合のみ設定）
+    if (this.isAdmin) {
+      this.setupAdminEventListeners();
+    }
+  }
+
+  // 管理者機能のイベントリスナー設定
+  setupAdminEventListeners() {
+    const addGameBtn = document.getElementById("addGameBtn");
+    const gameManagementClose = document.getElementById("gameManagementClose");
+    const saveGameBtn = document.getElementById("saveGameBtn");
+    const clearFormBtn = document.getElementById("clearFormBtn");
+    const downloadJsonBtn = document.getElementById("downloadJsonBtn");
+    const uploadJsonInput = document.getElementById("uploadJsonInput");
+
     // ゲーム管理モーダル
     addGameBtn.addEventListener("click", () => this.showGameManagementModal());
     gameManagementClose.addEventListener("click", () =>
@@ -188,6 +215,12 @@ class FamicomSearchApp {
     // ゲーム追加関連
     saveGameBtn.addEventListener("click", () => this.saveGameData());
     clearFormBtn.addEventListener("click", () => this.clearGameForm());
+
+    // ファイル操作関連
+    downloadJsonBtn.addEventListener("click", () => this.downloadGamesJson());
+    uploadJsonInput.addEventListener("change", (event) =>
+      this.uploadGamesJson(event)
+    );
   }
 
   // ゲーム一覧の表示
@@ -217,6 +250,8 @@ class FamicomSearchApp {
     div.dataset.title = game.title.toLowerCase();
     const imageUrl = game.imageUrl || "./img/noimage.png";
     const wikipediaUrl = game.wikipediaUrl;
+    const amazonUrl = game.amazonUrl;
+    const rakutenUrl = game.rakutenUrl;
 
     // wikipediaUrlがnullや空の場合はリンクを張らない
     const titleElement =
@@ -226,11 +261,39 @@ class FamicomSearchApp {
          </a>`
         : `<span class="game-title">${game.title}</span>`;
 
+    // アフィリエイト表示の判定（楽天優先）
+    let imageElement;
+    if (
+      rakutenUrl &&
+      rakutenUrl.trim() !== "" &&
+      amazonUrl &&
+      amazonUrl.trim() !== ""
+    ) {
+      // 楽天とAmazonの両方がある場合は両方表示
+      imageElement = `
+        <div class="affiliate-container">
+          <div class="rakuten-affiliate">
+            ${rakutenUrl}
+          </div>
+          <div class="amazon-affiliate">
+            ${this.createAffiliateElement(amazonUrl, game.title)}
+          </div>
+        </div>
+      `;
+    } else if (rakutenUrl && rakutenUrl.trim() !== "") {
+      // 楽天アフィリエイトHTMLをそのまま表示
+      imageElement = rakutenUrl;
+    } else if (amazonUrl && amazonUrl.trim() !== "") {
+      // Amazonアフィリエイト表示
+      imageElement = this.createAffiliateElement(amazonUrl, game.title);
+    } else {
+      // 通常の画像表示
+      imageElement = `<img src="${imageUrl}" alt="${game.title}" onerror="this.src='./img/noimage.png'" loading="lazy">`;
+    }
+
     div.innerHTML = `
       <div class="game-image">
-        <img src="${imageUrl}" alt="${
-      game.title
-    }" onerror="this.src='./img/noimage.png'" loading="lazy">
+        ${imageElement}
       </div>
       <div class="game-content">
         ${titleElement}
@@ -253,6 +316,23 @@ class FamicomSearchApp {
     `;
 
     return div;
+  }
+
+  // アフィリエイト要素の作成
+  createAffiliateElement(amazonUrl, gameTitle) {
+    return `
+      <div class="affiliate-container">
+        <a href="${amazonUrl}" target="_blank" rel="noopener noreferrer" class="affiliate-link">
+          <div class="affiliate-content">
+            <div class="affiliate-icon">🛒</div>
+            <div class="affiliate-text">
+              <div class="affiliate-title">Amazonで購入</div>
+              <div class="affiliate-subtitle">${gameTitle}</div>
+            </div>
+          </div>
+        </a>
+      </div>
+    `;
   }
 
   // レビューセクションの作成
@@ -310,8 +390,10 @@ class FamicomSearchApp {
     });
   }
 
-  // ゲーム管理一覧の表示
+  // ゲーム管理一覧の表示（管理者のみ）
   renderManagementGameList() {
+    if (!this.isAdmin) return;
+
     const container = document.getElementById("managementGameList");
     container.innerHTML = "";
 
@@ -346,8 +428,10 @@ class FamicomSearchApp {
     });
   }
 
-  // ゲーム削除フラグの切り替え
+  // ゲーム削除フラグの切り替え（管理者のみ）
   async toggleGameDelete(title) {
+    if (!this.isAdmin) return;
+
     try {
       const gameIndex = this.games.findIndex((game) => game.title === title);
       if (gameIndex === -1) return;
@@ -427,8 +511,10 @@ class FamicomSearchApp {
     document.getElementById("gameListOverlay").classList.add("hidden");
   }
 
-  // ゲーム管理モーダルの表示
+  // ゲーム管理モーダルの表示（管理者のみ）
   showGameManagementModal() {
+    if (!this.isAdmin) return;
+
     document.getElementById("gameManagementModal").classList.remove("hidden");
     this.renderManagementGameList();
   }
@@ -441,7 +527,10 @@ class FamicomSearchApp {
 
   // フォームをクリア
   clearGameForm() {
-    document.getElementById("gameJsonTextarea").value = "";
+    const textarea = document.getElementById("gameJsonTextarea");
+    if (textarea) {
+      textarea.value = "";
+    }
   }
 
   // エラー表示
@@ -450,8 +539,10 @@ class FamicomSearchApp {
     container.innerHTML = `<div class="loading">${message}</div>`;
   }
 
-  // ゲームデータを保存
+  // ゲームデータを保存（管理者のみ）
   async saveGameData() {
+    if (!this.isAdmin) return;
+
     const textarea = document.getElementById("gameJsonTextarea");
     const jsonText = textarea.value.trim();
 
@@ -526,6 +617,114 @@ class FamicomSearchApp {
         this.showToast("保存に失敗しました。", "error");
       }
     }
+  }
+
+  // ゲームデータをJSONファイルとしてダウンロード
+  downloadGamesJson() {
+    if (!this.isAdmin) return;
+
+    const gamesJson = JSON.stringify(this.games, null, 2);
+    const blob = new Blob([gamesJson], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "famicom_games.json";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    this.showToast("ゲームデータをダウンロードしました。", "success");
+  }
+
+  // ゲームデータをJSONファイルとしてアップロード
+  async uploadGamesJson(event) {
+    if (!this.isAdmin) return;
+
+    const file = event.target.files[0];
+
+    if (!file) {
+      this.showToast("ファイルを選択してください。", "warning");
+      return;
+    }
+
+    if (file.type !== "application/json") {
+      this.showToast("JSONファイルのみを選択してください。", "warning");
+      return;
+    }
+
+    try {
+      const reader = new FileReader();
+      reader.onload = async (event) => {
+        try {
+          const uploadedGames = JSON.parse(event.target.result);
+
+          // データの検証
+          if (!Array.isArray(uploadedGames)) {
+            this.showToast("有効なゲームデータ配列ではありません。", "error");
+            return;
+          }
+
+          // 必須フィールドのチェック
+          for (let i = 0; i < uploadedGames.length; i++) {
+            const game = uploadedGames[i];
+            if (!game.title || !game.publisher || !game.releaseYear) {
+              this.showToast(
+                `ゲーム ${i + 1} に必須フィールドが不足しています。`,
+                "error"
+              );
+              return;
+            }
+          }
+
+          // WordPress APIに送信してサーバー側に保存
+          const response = await fetch(
+            "/wp-json/famicom/v1/games/bulk-update",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({ games: uploadedGames }),
+            }
+          );
+
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+
+          const result = await response.json();
+
+          if (result.success) {
+            // ローカルデータを更新
+            this.games = uploadedGames;
+            this.sortedGames = this.sortGamesByJapanese(this.games);
+
+            // UIを更新
+            this.renderGames(this.games);
+            this.renderManagementGameList();
+            this.renderGameList();
+            this.updateStructuredData();
+
+            this.showToast(
+              `${uploadedGames.length}件のゲームデータをアップロードしました。`,
+              "success"
+            );
+          } else {
+            this.showToast(`エラー: ${result.message}`, "error");
+          }
+        } catch (parseError) {
+          console.error("JSON解析エラー:", parseError);
+          this.showToast("JSONファイルの形式が正しくありません。", "error");
+        }
+      };
+      reader.readAsText(file);
+    } catch (error) {
+      console.error("アップロードエラー:", error);
+      this.showToast("アップロードに失敗しました。", "error");
+    }
+
+    // ファイル入力をリセット
+    event.target.value = "";
   }
 }
 

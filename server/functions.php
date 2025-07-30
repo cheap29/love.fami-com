@@ -149,30 +149,6 @@ function saka_playground_scripts() {
 }
 add_action( 'wp_enqueue_scripts', 'saka_playground_scripts' );
 
-add_action('rest_api_init', function () {
-    // ゲーム一覧取得API
-    register_rest_route('famicom/v1', '/games', array(
-        'methods' => 'GET',
-        'callback' => 'get_famicom_games',
-        'permission_callback' => '__return_true'
-    ));
-    
-    // ゲーム追加API
-    register_rest_route('famicom/v1', '/games', array(
-        'methods' => 'POST',
-        'callback' => 'add_famicom_game',
-        'permission_callback' => '__return_true'
-    ));
-
-    // ゲーム更新API（削除フラグ更新用）
-    register_rest_route('famicom/v1', '/games/(?P<id>\d+)', array(
-        'methods' => 'PUT',
-        'callback' => 'update_famicom_game',
-        'permission_callback' => '__return_true'
-    ));
-});
-
-
 // ゲーム取得関数 
 function get_famicom_games($request) {
     $data_file = get_template_directory() . '/data/games.json';
@@ -236,6 +212,78 @@ function update_famicom_game($request) {
         return array('success' => false, 'message' => $e->getMessage());
     }
 }
+
+// ゲームデータの一括更新
+function bulk_update_famicom_games($request) {
+    $games = $request->get_json_params();
+    
+    if (!isset($games['games']) || !is_array($games['games'])) {
+        return new WP_REST_Response(array(
+            'success' => false,
+            'message' => 'ゲームデータが正しく提供されていません。'
+        ), 400);
+    }
+    
+    $json_file_path = get_template_directory() . '/data/games.json';
+    
+    try {
+        // JSONファイルに保存
+        $json_content = json_encode($games['games'], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+        if ($json_content === false) {
+            return new WP_REST_Response(array(
+                'success' => false,
+                'message' => 'JSONエンコードに失敗しました。'
+            ), 500);
+        }
+        
+        $result = file_put_contents($json_file_path, $json_content);
+        if ($result === false) {
+            return new WP_REST_Response(array(
+                'success' => false,
+                'message' => 'ファイルの書き込みに失敗しました。'
+            ), 500);
+        }
+        
+        return new WP_REST_Response(array(
+            'success' => true,
+            'message' => count($games['games']) . '件のゲームデータを更新しました。',
+            'count' => count($games['games'])
+        ), 200);
+        
+    } catch (Exception $e) {
+        return new WP_REST_Response(array(
+            'success' => false,
+            'message' => 'エラーが発生しました: ' . $e->getMessage()
+        ), 500);
+    }
+}
+
+// REST APIエンドポイントの登録
+add_action('rest_api_init', function () {
+    register_rest_route('famicom/v1', '/games', array(
+        'methods' => 'GET',
+        'callback' => 'get_famicom_games',
+        'permission_callback' => '__return_true'
+    ));
+    
+    register_rest_route('famicom/v1', '/games', array(
+        'methods' => 'POST',
+        'callback' => 'add_famicom_game',
+        'permission_callback' => '__return_true'
+    ));
+    
+    register_rest_route('famicom/v1', '/games/(?P<id>\d+)', array(
+        'methods' => 'PUT',
+        'callback' => 'update_famicom_game',
+        'permission_callback' => '__return_true'
+    ));
+    
+    register_rest_route('famicom/v1', '/games/bulk-update', array(
+        'methods' => 'POST',
+        'callback' => 'bulk_update_famicom_games',
+        'permission_callback' => '__return_true'
+    ));
+});
 
 
 /**
