@@ -258,6 +258,137 @@ function bulk_update_famicom_games($request) {
     }
 }
 
+// コメントデータの取得
+function get_famicom_comments($request) {
+    $comments_file_path = get_template_directory() . '/data/comments.json';
+    
+    if (!file_exists($comments_file_path)) {
+        return new WP_REST_Response(array(
+            'success' => true,
+            'comments' => array()
+        ), 200);
+    }
+    
+    try {
+        $json_content = file_get_contents($comments_file_path);
+        $comments = json_decode($json_content, true);
+        
+        if ($comments === null) {
+            return new WP_REST_Response(array(
+                'success' => true,
+                'comments' => array()
+            ), 200);
+        }
+        
+        return new WP_REST_Response(array(
+            'success' => true,
+            'comments' => $comments
+        ), 200);
+        
+    } catch (Exception $e) {
+        return new WP_REST_Response(array(
+            'success' => false,
+            'message' => 'コメントの読み込みに失敗しました: ' . $e->getMessage()
+        ), 500);
+    }
+}
+
+// コメントの追加
+function add_famicom_comment($request) {
+    $params = $request->get_json_params();
+    
+    if (!isset($params['name']) || !isset($params['text'])) {
+        return new WP_REST_Response(array(
+            'success' => false,
+            'message' => '名前とコメントは必須です。'
+        ), 400);
+    }
+    
+    $name = sanitize_text_field($params['name']);
+    $text = sanitize_textarea_field($params['text']);
+    
+    if (empty($name) || empty($text)) {
+        return new WP_REST_Response(array(
+            'success' => false,
+            'message' => '名前とコメントは必須です。'
+        ), 400);
+    }
+    
+    if (strlen($name) > 50) {
+        return new WP_REST_Response(array(
+            'success' => false,
+            'message' => '名前は50文字以内で入力してください。'
+        ), 400);
+    }
+    
+    if (strlen($text) > 500) {
+        return new WP_REST_Response(array(
+            'success' => false,
+            'message' => 'コメントは500文字以内で入力してください。'
+        ), 400);
+    }
+    
+    $comments_file_path = get_template_directory() . '/data/comments.json';
+    $comments = array();
+    
+    if (file_exists($comments_file_path)) {
+        try {
+            $json_content = file_get_contents($comments_file_path);
+            $comments = json_decode($json_content, true);
+            if ($comments === null) {
+                $comments = array();
+            }
+        } catch (Exception $e) {
+            $comments = array();
+        }
+    }
+    
+    $new_comment = array(
+        'id' => time() . '_' . uniqid(),
+        'name' => $name,
+        'text' => $text,
+        'date' => current_time('Y-m-d H:i:s'),
+        'ip' => $_SERVER['REMOTE_ADDR'] ?? 'unknown'
+    );
+    
+    array_unshift($comments, $new_comment);
+    
+    // 最大100件まで保持
+    if (count($comments) > 100) {
+        $comments = array_slice($comments, 0, 100);
+    }
+    
+    try {
+        $json_content = json_encode($comments, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+        if ($json_content === false) {
+            return new WP_REST_Response(array(
+                'success' => false,
+                'message' => 'JSONエンコードに失敗しました。'
+            ), 500);
+        }
+        
+        $result = file_put_contents($comments_file_path, $json_content);
+        if ($result === false) {
+            return new WP_REST_Response(array(
+                'success' => false,
+                'message' => 'ファイルの書き込みに失敗しました。'
+            ), 500);
+        }
+        
+        return new WP_REST_Response(array(
+            'success' => true,
+            'message' => 'コメントを投稿しました。',
+            'comment' => $new_comment
+        ), 200);
+        
+    } catch (Exception $e) {
+        return new WP_REST_Response(array(
+            'success' => false,
+            'message' => 'エラーが発生しました: ' . $e->getMessage()
+        ), 500);
+    }
+}
+
 // REST APIエンドポイントの登録
 add_action('rest_api_init', function () {
     register_rest_route('famicom/v1', '/games', array(
@@ -281,6 +412,19 @@ add_action('rest_api_init', function () {
     register_rest_route('famicom/v1', '/games/bulk-update', array(
         'methods' => 'POST',
         'callback' => 'bulk_update_famicom_games',
+        'permission_callback' => '__return_true'
+    ));
+
+    // 掲示板コメント関連のREST APIエンドポイントを登録
+    register_rest_route('famicom/v1', '/comments', array(
+        'methods' => 'GET',
+        'callback' => 'get_famicom_comments',
+        'permission_callback' => '__return_true'
+    ));
+
+    register_rest_route('famicom/v1', '/comments', array(
+        'methods' => 'POST',
+        'callback' => 'add_famicom_comment',
         'permission_callback' => '__return_true'
     ));
 });

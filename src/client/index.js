@@ -5,6 +5,7 @@ class FamicomSearchApp {
   constructor() {
     this.games = [];
     this.sortedGames = [];
+    this.comments = [];
     this.isAdmin = this.checkAdminParameter();
     this.init();
   }
@@ -17,6 +18,7 @@ class FamicomSearchApp {
 
   async init() {
     await this.loadData();
+    await this.loadComments();
     this.setupEventListeners();
     this.updateStructuredData();
     this.updateAdminUI();
@@ -45,6 +47,23 @@ class FamicomSearchApp {
     } catch (error) {
       console.error("データ読み込み失敗:", error);
       this.showError("データの読み込みに失敗しました");
+    }
+  }
+
+  // コメントデータの読み込み
+  async loadComments() {
+    try {
+      const response = await fetch("/wp-json/famicom/v1/comments");
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const data = await response.json();
+      this.comments = data.comments || [];
+      this.renderComments();
+    } catch (error) {
+      console.error("コメント読み込み失敗:", error);
+      this.comments = [];
+      this.renderComments();
     }
   }
 
@@ -191,9 +210,47 @@ class FamicomSearchApp {
     gameListToggle.addEventListener("click", () => this.showGameList());
     gameListClose.addEventListener("click", () => this.hideGameList());
 
+    // 掲示板機能のイベントリスナーを設定
+    this.setupBBSEventListeners();
+
     // 管理者機能のイベントリスナー（管理者の場合のみ設定）
     if (this.isAdmin) {
       this.setupAdminEventListeners();
+    }
+  }
+
+  // 掲示板機能のイベントリスナー設定
+  setupBBSEventListeners() {
+    const bbsToggleBtn = document.getElementById("bbsToggleBtn");
+    const bbsClose = document.getElementById("bbsClose");
+    const bbsOverlay = document.getElementById("bbsOverlay");
+    const postCommentBtn = document.getElementById("postCommentBtn");
+    const commentText = document.getElementById("commentText");
+    const commentName = document.getElementById("commentName");
+
+    // 掲示板の表示/非表示
+    if (bbsToggleBtn) {
+      bbsToggleBtn.addEventListener("click", () => this.showBBS());
+    }
+    if (bbsClose) {
+      bbsClose.addEventListener("click", () => this.hideBBS());
+    }
+    if (bbsOverlay) {
+      bbsOverlay.addEventListener("click", (e) => {
+        if (e.target === bbsOverlay) {
+          this.hideBBS();
+        }
+      });
+    }
+
+    // コメント投稿
+    if (postCommentBtn) {
+      postCommentBtn.addEventListener("click", () => this.postComment());
+    }
+
+    // 文字数カウント
+    if (commentText) {
+      commentText.addEventListener("input", () => this.updateCommentCount());
     }
   }
 
@@ -523,6 +580,168 @@ class FamicomSearchApp {
   hideGameManagementModal() {
     document.getElementById("gameManagementModal").classList.add("hidden");
     this.clearGameForm();
+  }
+
+  // 掲示板の表示
+  showBBS() {
+    const overlay = document.getElementById("bbsOverlay");
+    if (overlay) {
+      overlay.classList.remove("hidden");
+    }
+  }
+
+  // 掲示板の非表示
+  hideBBS() {
+    const overlay = document.getElementById("bbsOverlay");
+    if (overlay) {
+      overlay.classList.add("hidden");
+    }
+  }
+
+  // コメント一覧の表示
+  renderComments() {
+    const container = document.getElementById("commentsList");
+    if (!container) return;
+
+    if (this.comments.length === 0) {
+      container.innerHTML =
+        '<div class="loading">まだコメントがありません</div>';
+      return;
+    }
+
+    container.innerHTML = "";
+    this.comments.forEach((comment) => {
+      const commentElement = this.createCommentElement(comment);
+      container.appendChild(commentElement);
+    });
+  }
+
+  // コメント要素の作成
+  createCommentElement(comment) {
+    const div = document.createElement("div");
+    div.className = "comment-item";
+
+    const date = new Date(comment.date);
+    const formattedDate = date.toLocaleString("ja-JP", {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+
+    div.innerHTML = `
+      <div class="comment-header">
+        <span class="comment-author">${this.escapeHtml(comment.name)}</span>
+        <span class="comment-date">${formattedDate}</span>
+      </div>
+      <div class="comment-text">${this.escapeHtml(comment.text)}</div>
+    `;
+
+    return div;
+  }
+
+  // HTMLエスケープ
+  escapeHtml(text) {
+    const div = document.createElement("div");
+    div.textContent = text;
+    return div.innerHTML;
+  }
+
+  // 文字数カウント更新
+  updateCommentCount() {
+    const commentText = document.getElementById("commentText");
+    const commentCount = document.getElementById("commentCount");
+    if (!commentText || !commentCount) return;
+
+    const count = commentText.value.length;
+    commentCount.textContent = `${count}/500文字`;
+
+    if (count > 450) {
+      commentCount.style.color = "#d73a49";
+    } else if (count > 400) {
+      commentCount.style.color = "#f6a434";
+    } else {
+      commentCount.style.color = "#656d76";
+    }
+  }
+
+  // コメント投稿
+  async postComment() {
+    const nameInput = document.getElementById("commentName");
+    const textInput = document.getElementById("commentText");
+    const postBtn = document.getElementById("postCommentBtn");
+
+    if (!nameInput || !textInput || !postBtn) return;
+
+    const name = nameInput.value.trim();
+    const text = textInput.value.trim();
+
+    if (!name) {
+      this.showToast("お名前を入力してください", "error");
+      nameInput.focus();
+      return;
+    }
+
+    if (!text) {
+      this.showToast("コメントを入力してください", "error");
+      textInput.focus();
+      return;
+    }
+
+    if (name.length > 50) {
+      this.showToast("お名前は50文字以内で入力してください", "error");
+      return;
+    }
+
+    if (text.length > 500) {
+      this.showToast("コメントは500文字以内で入力してください", "error");
+      return;
+    }
+
+    // 投稿ボタンを無効化
+    postBtn.disabled = true;
+    postBtn.textContent = "📤 投稿中...";
+
+    try {
+      const response = await fetch("/wp-json/famicom/v1/comments", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: name,
+          text: text,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+
+      if (data.success) {
+        this.showToast("コメントを投稿しました！", "success");
+
+        // フォームをクリア
+        nameInput.value = "";
+        textInput.value = "";
+        this.updateCommentCount();
+
+        // コメント一覧を更新
+        await this.loadComments();
+      } else {
+        this.showToast(data.message || "投稿に失敗しました", "error");
+      }
+    } catch (error) {
+      console.error("コメント投稿失敗:", error);
+      this.showToast("投稿に失敗しました", "error");
+    } finally {
+      // 投稿ボタンを有効化
+      postBtn.disabled = false;
+      postBtn.textContent = "📤 投稿";
+    }
   }
 
   // フォームをクリア
